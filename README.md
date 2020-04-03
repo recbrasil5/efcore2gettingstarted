@@ -10,17 +10,20 @@
  
 ```
 
-### Helpful: Powershell commands for EF Core
 
-```
-get-help entityframeworkcore
-
-```
-
-### Add Migration  (powershell command runs where DbContext lives - `Samurai.Data`)
-`Add-Migration initial`
 
 
 ## First Course: Entity Framework Core 2: Getting Started (Pluralsight)
 
 ### Creating a Data Model and Database with EF Core
+
+Note: Run powershell commands where DbContext lives (`Samurai.Data`)
+
+### EF Core Help
+
+`get-help entityframeworkcore`
+
+#### Add Migration  
+`Add-Migration initial`
+
+#### Script Migration - Used for Renee

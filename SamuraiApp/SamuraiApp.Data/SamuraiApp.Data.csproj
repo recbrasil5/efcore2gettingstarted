@@ -103,6 +103,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\20200403005602_initial.cs" />
+    <Compile Include="Migrations\20200403005602_initial.designer.cs">
+      <DependentUpon>20200403005602_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\SamuraiContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SamuraiContext.cs" />
   </ItemGroup>
