@@ -17,7 +17,7 @@ Note: Run powershell commands where DbContext lives (`Samurai.Data`)
 `script-migration`
 
 #### Add Relationship (add schema update migration)
-add-migration relationships
+`add-migration relationships`
 
 #### Update-Migration (update database w/any changes since last snapshot - creates db if not exists)
 `update-migration`
