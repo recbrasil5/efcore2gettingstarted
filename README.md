@@ -1,9 +1,25 @@
 # efcore2gettingstarted
 
-Nuget Packages
+### Helpful: Known Nuget Package Installs
+
 ```
- - Microsoft.EntityFrameworkCore.SqlServer 2.0
+
+ - Microsoft.EntityFrameworkCore.SqlServer v2.0.1
+ - Microsoft.EntityFrameworkCore.Tools v2.0.1 
+ - Microsoft.EntityFrameworkCore.Design v2.0.1
+ 
 ```
+
+### Helpful: Powershell commands for EF Core
+
+```
+get-help entityframeworkcore
+
+```
+
+### Add Migration  (powershell command runs where DbContext lives - `Samurai.Data`)
+`Add-Migration initial`
+
 
 ## First Course: Entity Framework Core 2: Getting Started (Pluralsight)
 

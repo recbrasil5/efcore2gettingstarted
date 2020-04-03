@@ -6,6 +6,13 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamuraiApp.Domain", "SamuraiApp.Domain\SamuraiApp.Domain.csproj", "{60936133-62A8-48EA-AC6A-01A5F16E9AA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamuraiApp.Data", "SamuraiApp.Data\SamuraiApp.Data.csproj", "{A1C724F5-4F63-47C1-A96B-11997BE27940}"
+	ProjectSection(ProjectDependencies) = postProject
+		{60936133-62A8-48EA-AC6A-01A5F16E9AA2} = {60936133-62A8-48EA-AC6A-01A5F16E9AA2}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SomeUI", "SomeUI\SomeUI.csproj", "{3CA91863-DF08-4911-B1C8-46D6BF5AAD04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{C81F6406-6904-4E72-B963-626C988BE1CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +28,14 @@ Global
 		{A1C724F5-4F63-47C1-A96B-11997BE27940}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1C724F5-4F63-47C1-A96B-11997BE27940}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1C724F5-4F63-47C1-A96B-11997BE27940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CA91863-DF08-4911-B1C8-46D6BF5AAD04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CA91863-DF08-4911-B1C8-46D6BF5AAD04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CA91863-DF08-4911-B1C8-46D6BF5AAD04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CA91863-DF08-4911-B1C8-46D6BF5AAD04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C81F6406-6904-4E72-B963-626C988BE1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C81F6406-6904-4E72-B963-626C988BE1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C81F6406-6904-4E72-B963-626C988BE1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C81F6406-6904-4E72-B963-626C988BE1CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
