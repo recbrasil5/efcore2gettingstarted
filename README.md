@@ -32,6 +32,12 @@ Note: Run powershell commands where DbContext lives (`Samurai.Data`)
 #### Add Logging to see the SQL EF is generating
 Nugetget pkg: Microsoft.Extensions.Logging.Console
 
+```
+optionsBuilder
+     .UseLoggerFactory(MyConsoleLoggerFactory) //set logging factory
+     .EnableSensitiveDataLogging(true) //view parameter values in the console logs
+```
+
 ##### Helpful: Known Nuget Package Installs
 ```
  - Microsoft.EntityFrameworkCore.SqlServer v2.0.1

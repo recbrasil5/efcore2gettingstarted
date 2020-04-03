@@ -22,6 +22,7 @@ namespace SamuraiApp.Data
         {
             optionsBuilder
                 .UseLoggerFactory(MyConsoleLoggerFactory)
+                .EnableSensitiveDataLogging(true) //view parameter values in the console logs
                 .UseSqlServer(
                 "Server=localhost\\sqlexpress;Database=SamuraiAppData;Trusted_Connection=True");
         }
