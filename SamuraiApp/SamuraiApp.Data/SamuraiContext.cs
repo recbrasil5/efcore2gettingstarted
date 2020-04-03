@@ -24,7 +24,10 @@ namespace SamuraiApp.Data
                 .UseLoggerFactory(MyConsoleLoggerFactory)
                 .EnableSensitiveDataLogging(true) //view parameter values in the console logs
                 .UseSqlServer(
-                "Server=localhost\\sqlexpress;Database=SamuraiAppData;Trusted_Connection=True");
+                    "Server=localhost\\sqlexpress;Database=SamuraiAppData;Trusted_Connection=True");
+                //.UseSqlServer(
+                //"Server=localhost\\sqlexpress;Database=SamuraiAppData;Trusted_Connection=True", 
+                //options => options.MaxBatchSize(150)); //set match batch size of commands to be sent to SQL server at once.
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

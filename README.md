@@ -15,8 +15,8 @@ Note: Run powershell commands where DbContext lives (`Samurai.Data`)
 #### Add Relationship (add schema update migration)
 `add-migration relationships`
 
-#### Update-Migration (update database w/any changes since last snapshot - creates db if not exists)
-`update-migration`
+#### Update-Database (update database w/any changes since last snapshot - creates db if not exists)
+`update-database`
 
 #### Database-first script (sreate entities from existing db)
 `scaffold-dbcontext  -provider Microsoft.EntityFrameworkCore.SqlServer -connection "ConStr" ` `
