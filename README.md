@@ -1,14 +1,10 @@
 # efcore2gettingstarted
 
-## First Course: Entity Framework Core 2: Getting Started (Pluralsight)
+## EF Core 2.0 - Getting Started (Pluralsight)
 
 ### Creating a Data Model and Database with EF Core
 
 Note: Run powershell commands where DbContext lives (`Samurai.Data`)
-
-### EF Core Help
-
-`get-help entityframeworkcore`
 
 #### Add Migration  
 `Add-Migration initial`
@@ -25,12 +21,22 @@ Note: Run powershell commands where DbContext lives (`Samurai.Data`)
 #### Database-first script (sreate entities from existing db)
 `scaffold-dbcontext  -provider Microsoft.EntityFrameworkCore.SqlServer -connection "ConStr" ` `
 
+##### Helpful Poweshell script EF commands
 
-### Helpful: Known Nuget Package Installs
+`get-help entityframeworkcore`
+
+## Interacting with your EF Core Data Model
+
+Note: Run powershell commands where DbContext lives (`Samurai.Data`)
+
+#### Add Logging to see the SQL EF is generating
+Nugetget pkg: Microsoft.Extensions.Logging.Console
+
+##### Helpful: Known Nuget Package Installs
 ```
-
  - Microsoft.EntityFrameworkCore.SqlServer v2.0.1
  - Microsoft.EntityFrameworkCore.Tools v2.0.1 
  - Microsoft.EntityFrameworkCore.Design v2.0.1
+ - Microsoft.Extensions.Logging.Console v2.0.0
  ```
 
