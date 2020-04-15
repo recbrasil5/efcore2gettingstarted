@@ -14,9 +14,10 @@ namespace SomeUI
         private static SamuraiContext _context = new SamuraiContext();
         static void Main(string[] args)
         {
+            #region Module 3 methods
             //InsertSamurai();
             //InsertMultipleSamurais();
-            //InsertMultipleDifferentObjects();
+            //InsertMultipleSamuraisViaBatch(); //change for EF Core 2.1
             //SimpleSamuraiQuery();
             //MoreQueries();
             //RetrieveAndUpdateSamurai();
@@ -25,11 +26,28 @@ namespace SomeUI
             //QueryAndUpdateSamurai_Disconnected();
             //InsertBattle();
             //QueryAndUpdateBattle_Disconnected();
-            DeleteWhileTracked();
+            //DeleteWhileTracked();
             //DeleteWhileNotTracked();
             //DeleteMany();
             //DeleteUsingId(3);
+            #endregion
+
+            #region Module 4 methods
+            //InsertNewPkFkGraph();
+            //InsertNewPkFkGraphMultipleChildren();
+            //AddChildToExistingObjectWhileTracked();
+            AddChildToExistingObjectWhileNotTracked(1);
+            //EagerLoadSamuraiWithQuotes();
+            //var dynamicList = ProjectDynamic();
+            //ProjectSomeProperties();
+            //ProjectSamuraisWithQuotes();
+            //FilteringWithRelatedData();
+            //ModifyingRelatedDataWhenTracked();
+            //ModifyingRelatedDataWhenNotTracked();
+            #endregion
         }
+
+        #region Module 3
 
         private static void RetrieveAndUpdateSamurai()
         {
@@ -90,7 +108,7 @@ namespace SomeUI
 
         private static void QueryAndUpdateSamurai_Disconnected()
         {
-            var samurai = _context.Samurais.FirstOrDefault(s => s.Name == "Kikuchiyo");
+            var samurai = _context.Samurais.FirstOrDefault(s => s.Name == "Samurai1");
             samurai.Name += "San";
             using (var newContextInstance = new SamuraiContext())
             {
@@ -112,7 +130,7 @@ namespace SomeUI
                 }
             }
         }
-        
+
         private static void InsertSamurai()
         {
             var samurai = new Samurai { Name = "Nick" };
@@ -151,6 +169,22 @@ namespace SomeUI
             }
         }
 
+        private static void InsertMultipleSamuraisViaBatch()
+        {
+            //EF Core 2.1 added a minimum batch size which defaults to 4
+            //this 4 object insert WILL be batched
+            var samurai1 = new Samurai { Name = "Samurai1" };
+            var samurai2 = new Samurai { Name = "Samurai2" };
+            var samurai3 = new Samurai { Name = "Samurai3" };
+            var samurai4 = new Samurai { Name = "Samurai4" };
+            using (var context = new SamuraiContext())
+            {
+                context.Samurais.AddRange(samurai1, samurai2, samurai3, samurai4);
+                context.SaveChanges();
+            }
+        }
+
+
         private static void DeleteWhileTracked()
         {
             var samurai = _context.Samurais.FirstOrDefault(s => s.Name == "Samurai1San");
@@ -187,5 +221,62 @@ namespace SomeUI
                 contextNewAppInstance.SaveChanges();
             }
         }
+
+        #endregion
+
+        #region Module 4
+
+        private static void AddChildToExistingObjectWhileNotTracked(int samuraiId)
+        {
+            var quote = new Quote
+            {
+                Text = "Now that I saved you, will you feed me dinner?",
+                SamuraiId = samuraiId
+            };
+            using (var newContext = new SamuraiContext())
+            {
+                newContext.Quotes.Add(quote);
+                newContext.SaveChanges();
+            }
+        }
+
+        private static void AddChildToExistingObjectWhileTracked()
+        {
+            var samurai = _context.Samurais.First();
+            samurai.Quotes.Add(new Quote
+            {
+                Text = "I bet you're happy that I've saved you!"
+            });
+            _context.SaveChanges();
+        }
+
+        private static void InsertNewPkFkGraphMultipleChildren()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Kyūzō",
+                Quotes = new List<Quote> {
+                  new Quote {Text = "Watch out for my sharp sword!"},
+                  new Quote {Text="I told you to watch out for the sharp sword! Oh well!" }
+                }
+            };
+            _context.Samurais.Add(samurai);
+            _context.SaveChanges();
+        }
+
+        private static void InsertNewPkFkGraph()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Kambei Shimada",
+                Quotes = new List<Quote>
+                               {
+                                 new Quote {Text = "I've come to save you"}
+                               }
+            };
+            _context.Samurais.Add(samurai);
+            _context.SaveChanges();
+        }
+        #endregion
     }
 }

@@ -11,8 +11,8 @@ using System;
 namespace SamuraiApp.Data.Migrations
 {
     [DbContext(typeof(SamuraiContext))]
-    [Migration("20200403021511_relationships")]
-    partial class relationships
+    [Migration("20200415221122_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,7 +50,7 @@ namespace SamuraiApp.Data.Migrations
 
                     b.HasIndex("SamuraiId");
 
-                    b.ToTable("Qutoes");
+                    b.ToTable("Quotes");
                 });
 
             modelBuilder.Entity("SamuraiApp.Domain.Samurai", b =>
