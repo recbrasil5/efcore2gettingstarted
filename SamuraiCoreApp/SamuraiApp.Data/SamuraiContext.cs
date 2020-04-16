@@ -11,8 +11,15 @@ namespace SamuraiApp.Data
         }
 
         public DbSet<Samurai> Samurais { get; set; }
-        public DbSet<Quote> Qutoes { get; set; }
+        public DbSet<Quote> Quotes { get; set; }
         public DbSet<Battle> Battles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SamuraiBattle>()
+                .HasKey(s => new { s.BattleId, s.SamuraiId });
+            base.OnModelCreating(modelBuilder);
+        }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{

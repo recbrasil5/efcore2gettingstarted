@@ -30,22 +30,15 @@ namespace SamuraiApp.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BattleId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Samurais", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Samurais_Battles_BattleId",
-                        column: x => x.BattleId,
-                        principalTable: "Battles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Qutoes",
+                name: "Quotes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -55,9 +48,53 @@ namespace SamuraiApp.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Qutoes", x => x.Id);
+                    table.PrimaryKey("PK_Quotes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Qutoes_Samurais_SamuraiId",
+                        name: "FK_Quotes_Samurais_SamuraiId",
+                        column: x => x.SamuraiId,
+                        principalTable: "Samurais",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SamuraiBattle",
+                columns: table => new
+                {
+                    BattleId = table.Column<int>(nullable: false),
+                    SamuraiId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SamuraiBattle", x => new { x.BattleId, x.SamuraiId });
+                    table.ForeignKey(
+                        name: "FK_SamuraiBattle_Battles_BattleId",
+                        column: x => x.BattleId,
+                        principalTable: "Battles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SamuraiBattle_Samurais_SamuraiId",
+                        column: x => x.SamuraiId,
+                        principalTable: "Samurais",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SecretIdentity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RealName = table.Column<string>(nullable: true),
+                    SamuraiId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SecretIdentity", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SecretIdentity_Samurais_SamuraiId",
                         column: x => x.SamuraiId,
                         principalTable: "Samurais",
                         principalColumn: "Id",
@@ -65,26 +102,38 @@ namespace SamuraiApp.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Qutoes_SamuraiId",
-                table: "Qutoes",
+                name: "IX_Quotes_SamuraiId",
+                table: "Quotes",
                 column: "SamuraiId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Samurais_BattleId",
-                table: "Samurais",
-                column: "BattleId");
+                name: "IX_SamuraiBattle_SamuraiId",
+                table: "SamuraiBattle",
+                column: "SamuraiId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SecretIdentity_SamuraiId",
+                table: "SecretIdentity",
+                column: "SamuraiId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Qutoes");
+                name: "Quotes");
 
             migrationBuilder.DropTable(
-                name: "Samurais");
+                name: "SamuraiBattle");
+
+            migrationBuilder.DropTable(
+                name: "SecretIdentity");
 
             migrationBuilder.DropTable(
                 name: "Battles");
+
+            migrationBuilder.DropTable(
+                name: "Samurais");
         }
     }
 }
