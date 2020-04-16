@@ -37,11 +37,11 @@ namespace SomeUI
             //InsertNewPkFkGraphMultipleChildren();
             //AddChildToExistingObjectWhileTracked();
             //AddChildToExistingObjectWhileNotTracked(1);
-            EagerLoadSamuraiWithQuotes();
+            //EagerLoadSamuraiWithQuotes();
             //var dynamicList = ProjectDynamic();
             //ProjectSomeProperties();
             //ProjectSamuraisWithQuotes();
-            //FilteringWithRelatedData();
+            FilteringWithRelatedData();
             //ModifyingRelatedDataWhenTracked();
             //ModifyingRelatedDataWhenNotTracked();
             #endregion
@@ -329,7 +329,7 @@ namespace SomeUI
         private static void ProjectSomeProperties()
         {
             var someProperties = _context.Samurais.Select(s => new { s.Id, s.Name }).ToList();
-            var idsAndNames = _context.Samurais.Select(s => new IdAndName(s.Id, s.Name)).ToList();
+            //var idsAndNames = _context.Samurais.Select(s => new IdAndName(s.Id, s.Name)).ToList();
         }
 
         private static List<dynamic> ProjectDynamic()
