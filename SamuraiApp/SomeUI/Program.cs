@@ -41,9 +41,9 @@ namespace SomeUI
             //var dynamicList = ProjectDynamic();
             //ProjectSomeProperties();
             //ProjectSamuraisWithQuotes();
-            FilteringWithRelatedData();
+            //FilteringWithRelatedData();
             //ModifyingRelatedDataWhenTracked();
-            //ModifyingRelatedDataWhenNotTracked();
+            ModifyingRelatedDataWhenNotTracked();
             #endregion
         }
 
