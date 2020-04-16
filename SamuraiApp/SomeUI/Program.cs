@@ -37,6 +37,9 @@ namespace SomeUI
             //InsertNewPkFkGraphMultipleChildren();
             //AddChildToExistingObjectWhileTracked();
             //AddChildToExistingObjectWhileNotTracked(1);
+            #endregion
+
+            #region Module 5 methods
             //EagerLoadSamuraiWithQuotes();
             //var dynamicList = ProjectDynamic();
             //ProjectSomeProperties();
@@ -346,5 +349,6 @@ namespace SomeUI
             //.FirstOrDefault();
         }
         #endregion
+
     }
 }
