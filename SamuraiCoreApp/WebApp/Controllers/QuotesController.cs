@@ -46,15 +46,12 @@ namespace WebApp.Controllers
         }
 
         // GET: Quotes/Create
-        public IActionResult Create()
+        public IActionResult Create(int samuraiId)
         {
-            ViewData["SamuraiId"] = new SelectList(_context.Samurais, "Id", "Id");
+            ViewData["SamuraiList"] = new SelectList(_context.Samurais, "Id", "Name", samuraiId);
             return View();
         }
 
-        // POST: Quotes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Text,SamuraiId")] Quote quote)
@@ -63,10 +60,10 @@ namespace WebApp.Controllers
             {
                 _context.Add(quote);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Samurais", new { id = quote.SamuraiId });
             }
-            ViewData["SamuraiId"] = new SelectList(_context.Samurais, "Id", "Id", quote.SamuraiId);
-            return View(quote);
+            //ViewData["SamuraiId"] = new SelectList(_context.Samurais, "Id", "Id", quote.SamuraiId);
+            return RedirectToAction("Details", "Samurais", new { id = quote.SamuraiId });
         }
 
         // GET: Quotes/Edit/5
@@ -76,19 +73,16 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
             var quote = await _context.Quotes.SingleOrDefaultAsync(m => m.Id == id);
             if (quote == null)
             {
                 return NotFound();
             }
-            ViewData["SamuraiId"] = new SelectList(_context.Samurais, "Id", "Id", quote.SamuraiId);
+            ViewData["SamuraiId"] = new SelectList(_context.Samurais, "Id", "Name", quote.SamuraiId);
             return View(quote);
+
         }
 
-        // POST: Quotes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Text,SamuraiId")] Quote quote)
@@ -97,7 +91,6 @@ namespace WebApp.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
@@ -111,15 +104,12 @@ namespace WebApp.Controllers
                     {
                         return NotFound();
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    else { throw; }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Samurais", new { id = quote.SamuraiId });
             }
             ViewData["SamuraiId"] = new SelectList(_context.Samurais, "Id", "Id", quote.SamuraiId);
-            return View(quote);
+            return RedirectToAction("Details", "Samurais", new { id = quote.SamuraiId });
         }
 
         // GET: Quotes/Delete/5

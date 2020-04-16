@@ -33,8 +33,10 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var samurai = await _context.Samurais
+            var samurai = await _context.Samurais.Include(s => s.SecretIdentity)
+                .Include(s => s.Quotes)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
             if (samurai == null)
             {
                 return NotFound();
@@ -73,7 +75,9 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var samurai = await _context.Samurais.SingleOrDefaultAsync(m => m.Id == id);
+            var samurai = await _context.Samurais.Include(s => s.SecretIdentity)
+                                                 .Include(s => s.Quotes)
+                                                 .SingleOrDefaultAsync(m => m.Id == id);
             if (samurai == null)
             {
                 return NotFound();
@@ -81,12 +85,10 @@ namespace WebApp.Controllers
             return View(samurai);
         }
 
-        // POST: Samurais/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Samurai samurai)
+        //    public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Samurai samurai)
+        public async Task<IActionResult> Edit(int id, Samurai samurai)
         {
             if (id != samurai.Id)
             {
