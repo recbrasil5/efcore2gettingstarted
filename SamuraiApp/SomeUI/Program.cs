@@ -36,8 +36,8 @@ namespace SomeUI
             //InsertNewPkFkGraph();
             //InsertNewPkFkGraphMultipleChildren();
             //AddChildToExistingObjectWhileTracked();
-            AddChildToExistingObjectWhileNotTracked(1);
-            //EagerLoadSamuraiWithQuotes();
+            //AddChildToExistingObjectWhileNotTracked(1);
+            EagerLoadSamuraiWithQuotes();
             //var dynamicList = ProjectDynamic();
             //ProjectSomeProperties();
             //ProjectSamuraisWithQuotes();
@@ -276,6 +276,74 @@ namespace SomeUI
             };
             _context.Samurais.Add(samurai);
             _context.SaveChanges();
+        }
+        #endregion
+
+        #region Module 5
+        private static void ModifyingRelatedDataWhenTracked()
+        {
+            var samurai = _context.Samurais.Include(s => s.Quotes).FirstOrDefault();
+            samurai.Quotes[0].Text += " Did you hear that?";
+            _context.SaveChanges();
+        }
+
+        private static void ModifyingRelatedDataWhenNotTracked()
+        {
+            var samurai = _context.Samurais.Include(s => s.Quotes).FirstOrDefault();
+            var quote = samurai.Quotes[0];
+            quote.Text += " Did you hear that?";
+            using (var newContext = new SamuraiContext())
+            {
+                //newContext.Quotes.Update(quote);
+                newContext.Entry(quote).State = EntityState.Modified;
+                newContext.SaveChanges();
+            }
+        }
+
+
+        private static void FilteringWithRelatedData()
+        {
+            var samurais = _context.Samurais
+                                   .Where(s => s.Quotes.Any(q => q.Text.Contains("happy")))
+                                   .ToList();
+        }
+
+        private static void ProjectSamuraisWithQuotes()
+        {
+            var somePropertiesWithQuotes = _context.Samurais
+                .Select(s => new { s.Id, s.Name, s.Quotes.Count })
+                .ToList();
+
+        }
+
+        public struct IdAndName
+        {
+            public IdAndName(int id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+            public int Id;
+            public string Name;
+        }
+        private static void ProjectSomeProperties()
+        {
+            var someProperties = _context.Samurais.Select(s => new { s.Id, s.Name }).ToList();
+            var idsAndNames = _context.Samurais.Select(s => new IdAndName(s.Id, s.Name)).ToList();
+        }
+
+        private static List<dynamic> ProjectDynamic()
+        {
+            var someProperties = _context.Samurais.Select(s => new { s.Id, s.Name }).ToList();
+            return someProperties.ToList<dynamic>();
+        }
+
+        private static void EagerLoadSamuraiWithQuotes()
+        {
+            var samuraiWithQuotes = _context.Samurais //.Where(s => s.Name.Contains("Kyūzō"))
+                .Include(s => s.Quotes).ToList();
+            //.Include(s => s.SecretIdentity)
+            //.FirstOrDefault();
         }
         #endregion
     }
